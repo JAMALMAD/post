@@ -1,16 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:post/home_controller.dart';
+import 'package:post/services/sing_up_screen.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _LoginScreenState extends State<LoginScreen> {
   HomeController controller = Get.put(HomeController());
 
   @override
@@ -27,29 +28,25 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextFormField(
-              controller: controller.emailController,
+              controller: controller.logInEmailController,
               decoration:const InputDecoration(
                 hintText: "Email",border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 10,),
             TextFormField(
-              controller: controller.passwordController,
+              controller: controller.logInPasswordController,
               decoration: const InputDecoration(
                 hintText: "Password",border: OutlineInputBorder(),
               ),
             ),
             SizedBox(height: 10,),
-            // Container(
-            //   height: 40,
-            //   width: 100,
-            //   color: Colors.green,
-            //   child: Text("Log In"),
-            // ),
             ElevatedButton(onPressed: (){
-              print("============================");
-              controller.signIn();
-            }, child: Text("Login"))
+              controller.logIn();
+            }, child: Text("Login")),
+            ElevatedButton(onPressed: (){
+              Get.to(()=>SingUpScreen());
+            }, child: Text("SingUp"))
           ],
         ),
       ),

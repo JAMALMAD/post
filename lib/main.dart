@@ -1,21 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:post/home_page.dart';
+import 'package:get/get.dart';
+import 'helper/prefs_helper.dart';
+import 'package:post/services/approute.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  String token = await SharePrefsHelper.getString(SharedPreferenceValue.token);
+
+  runApp(MyApp(token));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final String token;
+
+  const MyApp(this.token, {super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: HomePage(),
+    return GetMaterialApp(
+      title: 'Your App',
+      initialRoute: token.isEmpty ? Approutes.loginScreen : Approutes.detailsScreen,
+      getPages: Approutes.routes,
     );
   }
 }
